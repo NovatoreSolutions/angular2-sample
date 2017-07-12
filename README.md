@@ -27,6 +27,7 @@ Run the app
 $ npm run build
 ```
 If in case above command does'nt work
+
 For Angular 2 
 ```bash
 $ npm start
