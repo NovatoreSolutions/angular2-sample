@@ -1,0 +1,253 @@
+<div class="padding-forCalendar">
+
+  <div>
+    <div  class="col-sm-2 control-label">Filter By User:</div>
+    <div class="col-sm-4">
+      <select [(ngModel)]="filterByUser" name="filter" class="form-control" id=""  >
+        <option *ngFor="let c of users" [value]="c._id">{{c.firstName + " " + c.lastName + " (" + c.role + ")" }}</option>
+      </select>
+
+    </div>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary custom-btn" (click)="getscheduleforUser()">Filter</button>
+    </div>
+  </div>
+  <div style="min-height: 30px;margin-bottom: 30px"></div>
+
+  <template ngbModalContainer></template>
+
+  <template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="close()">OK</button>
+    </div>
+  </template>
+
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary" (click)="decrement()" style="border: 1px solid black;">
+          Previous
+        </div>
+        <div class="btn btn-secondary" (click)="today()" style="border: 1px solid black;">
+          Today
+        </div>
+        <div class="btn btn-primary" (click)="increment()" style="border: 1px solid black;">
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary" (click)="view = 'month'" [class.active]="view === 'month'">Month</div>
+        <div class="btn btn-primary" (click)="view = 'week'" [class.active]="view === 'week'">Week</div>
+        <div class="btn btn-primary" (click)="view = 'day'" [class.active]="view === 'day'">Day</div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event);detailModal.open()">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event);detailModal.open()">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event);detailModal.open()">
+    </mwl-calendar-day-view>
+  </div>
+
+  <br><br><br>
+
+  <div>
+
+    <h3>Add Schedule</h3>
+
+    <form class="form-horizontal" name="myForm" novalidate #scheduleForm="ngForm">
+
+
+      <div class="form-group">
+
+        <label for="name" class="col-sm-2 control-label">Date:</label>
+        <div class="col-sm-10">
+          <input required #name="ngModel" [disabled]="true" type="datetime" [(ngModel)]="scheduleDate"  name="name" placeholder="choose from above calendar" class="form-control" id="name" >
+
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label  for="userRole" class="col-sm-2 control-label">Role:</label>
+        <div class="col-sm-10">
+          <select [(ngModel)]="user" name="userRole" #userRole="ngModel"  class="form-control" id="userRole" placeholder="Choose User" required>
+            <option *ngFor="let c of users" [value]="c._id">{{c.firstName + " " + c.lastName + " (" + c.role + ")" }}</option>
+          </select>
+          <div [hidden]="userRole.valid || userRole.pristine"
+               class="alert alert-danger">
+            Role is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descriptionField" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+          <textarea  [(ngModel)]="description" name="descriptionField" #descriptionField="ngModel" id="descriptionField" class="form-control" required  ></textarea>
+          <div [hidden]="descriptionField.valid || (descriptionField.pristine && !scheduleForm.submitted)"
+               class="alert alert-danger">
+            Description is required
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">Start Time</label>
+        <div class="col-sm-2">
+          <timepicker [(ngModel)]="startTime"  [minuteStep]="30" name="startTimePicker" #startTimePicker="ngModel"  required></timepicker>
+          <div [hidden]="startTimePicker.valid || (startTimePicker.pristine && !scheduleForm.submitted)"
+               class="alert alert-danger">
+            Start Time is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">End Time</label>
+        <div class="col-sm-2">
+          <timepicker [(ngModel)]="endTime" [minuteStep]="30" name="endTimePicker" #endTimePicker="ngModel" required></timepicker>
+          <div [hidden]="endTimePicker.valid || (endTimePicker.pristine && !scheduleForm.submitted)"
+               class="alert alert-danger">
+            End Time is required
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary custom-btn" [disabled]="!scheduleForm.form.valid" (click)="addSchedule()" >Add Schedule</button>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10" style="color:red;">{{ errorMessage }}</div>
+
+      </div>
+    </form>
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<modal #detailModal [closeOnOutsideClick]="false" >
+  <modal-header>
+    <div style="text-align: center">
+      <h2>Detail</h2>
+    </div>
+  </modal-header>
+  <modal-content >
+
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div  class="col-sm-3">Start Time:</div>
+        <div class="col-sm-9">{{ detailEvent.startTime}}</div>
+      </div>
+
+      <div class="form-group">
+        <div  class="col-sm-3">End Time:</div>
+        <div class="col-sm-9">{{ detailEvent.endTime}}</div>
+      </div>
+      <div class="form-group">
+        <div  class="col-sm-3">Description:</div>
+        <div class="col-sm-9">{{ detailEvent.description}}</div>
+      </div>
+      <div class="form-group">
+        <div  class="col-sm-3">Assigned To:</div>
+        <div class="col-sm-9">{{ detailEvent.user}}</div>
+      </div>
+      <div class="form-group">
+        <div  class="col-sm-3">Role:</div>
+        <div class="col-sm-9">{{ detailEvent.userRole}}</div>
+      </div>
+
+    </form>
+
+
+
+
+
+
+
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="detailModal.close();deleteScheduleModal.open()">Delete</button>
+  </modal-footer>
+
+</modal>
+
+
+
+<modal #deleteScheduleModal [closeOnOutsideClick]="false" >
+  <modal-header>
+    <div style="text-align: center">
+      <h2>Delete</h2>
+    </div>
+  </modal-header>
+  <modal-content >
+
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        Are you sure you want to delete?
+      </div>
+    </form>
+
+
+
+
+
+
+
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="deleteSchedule();deleteScheduleModal.close()">Delete</button>
+  </modal-footer>
+
+</modal>

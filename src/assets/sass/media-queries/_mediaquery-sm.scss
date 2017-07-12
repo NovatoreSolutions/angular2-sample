@@ -1,0 +1,104 @@
+@media (min-width: 600px) and (max-width: 959px) {
+
+
+  .subscribe-button {
+
+
+
+    font-size: 22px !important;
+
+  }
+
+
+
+  .profile-info{
+    min-height: 80px !important;
+
+    .material-icons{
+
+      line-height: 2 !important;
+    }
+  }
+
+}
+
+@media (min-width: 700px) and (max-width: 959px) {
+
+
+
+
+
+  .filter-box{
+
+    md-select.md-default-theme .md-select-value.md-select-placeholder, md-select .md-select-value.md-select-placeholder{
+
+
+      font-size: 15px !important;
+
+    }
+
+    .md-select-value .md-text{
+
+      font-size: 12px !important;
+    }
+
+    .search-button {
+
+      font-size: 15px !important;
+
+
+    }
+
+
+  }
+}
+@media (min-width: 600px) and (max-width: 659px) {
+
+
+
+  .item-heading{
+
+    h1{
+
+      font-size: 16px !important;
+
+    }
+
+  }
+
+  .item-description{
+    font-size: 13px !important;
+  }
+
+
+  .filter-box{
+
+    md-select.md-default-theme .md-select-value.md-select-placeholder, md-select .md-select-value.md-select-placeholder{
+
+
+      font-size: 12px !important;
+
+    }
+
+    .md-select-value .md-text{
+
+      font-size: 10px !important;
+    }
+
+    .search-button {
+
+      font-size: 13px !important;
+
+
+    }
+
+
+  }
+
+
+
+
+}
+
+
+

@@ -1,0 +1,111 @@
+
+@media (min-width: 1280px) and (max-width: 1920px) {
+
+  .image-box{
+
+    min-height: 340px !important;
+    max-height: 340px !important;
+    width: 100% !important;
+    outline: none;
+  }
+
+  .item-description{
+
+    margin-top: 4px;
+  }
+
+  .detail-data-box{
+
+    min-height: 530px;
+
+    img{
+
+      height: 530px;width: 100%
+    }
+  }
+
+  .comment-user-img{
+
+    height: 105px !important;
+  }
+  .comment-div h4{
+
+    font-size: 23px;
+  }
+  .comment-div p{
+
+    font-size: 18px;
+  }
+
+  .comment-div .jk-rating-stars-container .button .material-icons{
+
+    font-size: 22px !important;
+  }
+
+}
+
+
+@media (min-width: 1920px) {
+
+
+  .image-box{
+
+    min-height: 440px !important;
+    max-height: 440px !important;
+    width: 100% !important;
+    outline: none;
+  }
+
+  .detail-data-box{
+
+    min-height: 640px;
+
+    img{
+
+      height: 640px;width: 100%
+    }
+  }
+
+  .jk-rating-stars-container .button .material-icons{
+
+    font-size: 34px !important;
+  }
+  .profile-info .material-icons{
+
+    line-height: 1 !important;
+  }
+
+
+
+  .item-heading h1{
+     font-size: 34px;
+  }
+
+  .item-description{
+    margin-top: 4px;
+    font-size: 26px;
+  }
+  .item-heading p{
+
+    font-size: 18px;
+
+  }
+  .comment-user-img{
+
+    height: 160px !important;
+  }
+  .comment-div h4{
+
+    font-size: 26px;
+  }
+  .comment-div p{
+
+    font-size: 20px;
+  }
+
+  .comment-div .jk-rating-stars-container .button .material-icons{
+
+    font-size: 24px !important;
+  }
+
+}

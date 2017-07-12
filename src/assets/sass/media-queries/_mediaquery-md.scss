@@ -1,0 +1,84 @@
+
+@media (min-width: 960px) and (max-width: 1279px) {
+
+
+
+  .image-box{
+
+    min-height: 250px !important;
+    max-height: 250px !important;
+
+  }
+
+  .subscribe-button {
+
+
+
+    font-size: 26px !important;
+
+  }
+
+  .detail-data-box{
+
+    min-height: 360px;
+
+    img{
+
+      height: 360px;width: 100%
+    }
+  }
+
+
+
+  .filter-box{
+
+    md-select.md-default-theme .md-select-value.md-select-placeholder, md-select .md-select-value.md-select-placeholder{
+
+
+      font-size: 19px !important;
+
+    }
+
+    .md-select-value .md-text{
+
+      font-size: 16px !important;
+    }
+
+    .search-button {
+
+      font-size: 19px !important;
+
+
+    }
+
+
+  }
+
+  .item-heading{
+
+    h1{
+
+      font-size: 18px !important;
+
+    }
+    p{
+
+      font-size: 10px;
+
+    }
+
+
+  }
+
+
+
+  .item-description{
+    font-size: 14px !important;
+  }
+
+  .comment-user-img{
+
+    height: 75px !important;
+    width: 100% !important;
+  }
+}

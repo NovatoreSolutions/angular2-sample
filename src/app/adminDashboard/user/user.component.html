@@ -1,0 +1,269 @@
+
+<div class="padding-forTable">
+  <table class="table" >
+    <thead >
+
+    <tr>
+
+      <th >Name</th>
+      <th >Email</th>
+      <th >Phone</th>
+      <th >Role</th>
+      <th>Actions</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let user of users; let i=index">
+      <td >{{ user.firstName + " " + user.lastName }}</td>
+      <td >{{ user.email }}</td>
+      <td >{{ user.phone }}</td>
+      <td >{{ user.role }}</td>
+      <td >
+        <button class="editbutton" (click)="editModal.open();setObjtoUpdate(user,i)">
+        Edit
+      </button>
+        <button class="deletebutton" (click)="deleteModal.open();setValueToDelete(user,i)" >
+          Delete
+        </button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<button md-fab  class="add-btn-material" (click)="addModal.open()">
+  <md-icon class="md-24">add</md-icon>
+</button>
+
+
+<modal #addModal [closeOnOutsideClick]="false">
+  <modal-header>
+    <div style="text-align: center">
+      <h2>Create User</h2>
+    </div>
+  </modal-header>
+  <modal-content >
+
+      <form class="form-horizontal" name="userForm" novalidate #userForm="ngForm">
+
+
+        <div class="form-group">
+          <label for="firstNameField" class="col-sm-3 control-label">First Name:</label>
+          <div class="col-sm-9">
+            <input type="text" #firstNameField="ngModel" [(ngModel)]="firstName" class="form-control" name="firstNameField" id="firstNameField" required>
+            <div [hidden]="firstNameField.valid || (firstNameField.pristine && !userForm.submitted)"
+                 class="error-message">
+              First name is required
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastNameField" class="col-sm-3 control-label">Last Name:</label>
+          <div class="col-sm-9">
+            <input type="text" #lastNameField="ngModel" [(ngModel)]="lastName" class="form-control" name="lastNameField" id="lastNameField" required>
+            <div [hidden]="lastNameField.valid || (lastNameField.pristine && !userForm.submitted)"
+                 class="error-message">
+              Last name is required
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="emailField" class="col-sm-3 control-label">Email:</label>
+          <div class="col-sm-9">
+            <input type="email" #emailField="ngModel" [(ngModel)]="email" class="form-control" name="emailField" id="emailField" required>
+            <div [hidden]="emailField.valid || (emailField.pristine && !userForm.submitted)"
+                 class="error-message">
+              Email is required
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="passwordField" class="col-sm-3 control-label">Password:</label>
+          <div class="col-sm-9">
+            <input type="password" #passwordField="ngModel" [(ngModel)]="password" class="form-control" name="passwordField" id="passwordField" required>
+            <div [hidden]="passwordField.valid || (passwordField.pristine && !userForm.submitted)"
+                 class="error-message">
+              Password is required
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneField" class="col-sm-3 control-label">Phone:</label>
+          <div class="col-sm-9">
+            <input type="tel"  #phoneField="ngModel"  [(ngModel)]="phone" class="form-control" name="phoneField" id="phoneField" required>
+            <div [hidden]="phoneField.valid || (phoneField.pristine && !userForm.submitted)"
+                 class="error-message">
+              Phone is required
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="roleField" class="col-sm-3 control-label">Role:</label>
+          <div class="col-sm-9">
+            <select [(ngModel)]="role" #roleField="ngModel" name="roleField" class="form-control" id="roleField" placeholder="Choose Role" required>
+              <option *ngFor="let c of roles" [value]="c">{{c}}</option>
+            </select>
+            <div [hidden]="roleField.valid || (roleField.pristine && !userForm.submitted)"
+                 class="error-message">
+              Role is required
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+      <div style="color: #f4476b; text-align: right" >
+        {{ responseMessage }}
+      </div>
+
+
+  </modal-content>
+  <modal-footer>
+    <button type="submit" class="btn btn-primary custom-btn" [disabled]="!userForm.form.valid" (click)="addUserDialog()" >Add User</button>
+  </modal-footer>
+</modal>
+
+
+<modal #editModal [closeOnOutsideClick]="false" >
+  <modal-header>
+    <div style="text-align: center">
+      <h2>Edit User</h2>
+    </div>
+  </modal-header>
+  <modal-content >
+
+    <form class="form-horizontal"  novalidate #userEditForm="ngForm">
+
+
+      <div class="form-group">
+        <label for="updateFirstNameField" class="col-sm-3 control-label">First Name:</label>
+        <div class="col-sm-9">
+          <input type="text"  #updateFirstNameField="ngModel" [(ngModel)]="updateFirstName" class="form-control" name="updateFirstNameField" id="updateFirstNameField" required>
+          <div [hidden]="updateFirstNameField.valid || (updateFirstNameField.pristine && !userEditForm.submitted)"
+               class="error-message">
+            First name is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="updateLastNameField" class="col-sm-3 control-label">Last Name:</label>
+        <div class="col-sm-9">
+          <input type="text"  #updateLastNameField="ngModel" [(ngModel)]="updateLastName" class="form-control" name="updateLastNameField" id="updateLastNameField" required>
+          <div [hidden]="updateLastNameField.valid || (updateLastNameField.pristine && !userEditForm.submitted)"
+               class="error-message">
+            Last name is required
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="updateEmailField" class="col-sm-3 control-label">Email:</label>
+        <div class="col-sm-9">
+          <input type="email"  #updateEmailField="ngModel" [(ngModel)]="updateEmail" class="form-control" name="updateEmailField" id="updatEmail" id="updateEmailField" required>
+          <div [hidden]="updateEmailField.valid || (updateEmailField.pristine && !userEditForm.submitted)"
+               class="error-message">
+            Email is required
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="updatePasswordField" class="col-sm-3 control-label">Password:</label>
+        <div class="col-sm-9">
+          <input type="password"  #updatePasswordField="ngModel" [(ngModel)]="updatePassword" class="form-control" name="updatePasswordField" id="updatePasswordField" required>
+          <div [hidden]="updatePasswordField.valid || (updatePasswordField.pristine && !userEditForm.submitted)"
+               class="error-message">
+            Password is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="updatePhoneField" class="col-sm-3 control-label">Phone:</label>
+        <div class="col-sm-9">
+          <input type="tel" #updatePhoneField="ngModel"  [(ngModel)]="updatePhone" class="form-control" name="updatePhoneField" id="updatePhoneField" required>
+          <div [hidden]="updatePhoneField.valid || (updatePhoneField.pristine && !userEditForm.submitted)"
+               class="error-message">
+            Phone is required
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="updateRole" class="col-sm-3 control-label">Role:</label>
+        <div class="col-sm-9">
+          <select [(ngModel)]="updateRole" name="updateRole" class="form-control" id="updateRole"  required>
+            <option *ngFor="let c of roles" [value]="c">{{c}}</option>
+          </select>
+
+
+        </div>
+      </div>
+
+
+
+    </form>
+
+    <div style="color: #f4476b; text-align: right" >
+      {{ responseMessageUpdate }}
+    </div>
+
+
+  </modal-content>
+  <modal-footer>
+    <button type="submit" class="btn btn-primary custom-btn" [disabled]="!userEditForm.form.valid" (click)="editUserDialog()" >Update User</button>
+  </modal-footer>
+</modal>
+
+
+
+
+<modal #deleteModal [closeOnOutsideClick]="false" >
+  <modal-header>
+    <div style="text-align: center">
+      <h2>Delete</h2>
+    </div>
+  </modal-header>
+  <modal-content >
+
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        Are you sure you want to delete?
+      </div>
+    </form>
+
+
+
+
+
+
+
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="deleteUserDialog();deleteModal.close()">Delete</button>
+  </modal-footer>
+
+</modal>

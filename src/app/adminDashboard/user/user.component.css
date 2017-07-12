@@ -1,0 +1,17 @@
+.padding-forTable{
+  padding: 35px;
+}
+
+.add-btn-material
+{
+  position: fixed !important  ;
+  bottom: 0 !important  ;
+  right: 0 !important  ;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-backdrop{
+
+  position: relative !important;
+}
