@@ -1,38 +1,43 @@
-# Angular 2 Sample Project 
+# Novatore Angular 2 Sample Project 
 
-(Mean Stack Application using Angular 2.0)
+Angular 2 sample application built on top of Node, Express and MongoDB (MEAN2)
 
-## Major Features:
+## Features
 
 1. Angular 2 Bootstrap Calender
 2. Angular 2 routing
 3. Calendar events CRUD (Create, Read, Update , Delete)
 
 
-## Set up.
-Make sure you have angular cli installed.
-```bash
-$ npm install -g angular-cli
-```
+## Set up
 
-Clone the repo
+1. Install node, npm and mongoDB
 
-Install dependencies
-```bash
-$ npm install
-```
+2. Install angular cli
 
-Run the app
-```bash
-$ npm run build
-```
-If in case above command does'nt work
+        $ npm install -g angular-cli
 
-For Angular 2 
-```bash
-$ npm start
-```
-For Server
-```bash
-$ node server.js
-```
+3. Clone the repo
+
+4. Install dependencies
+
+        $ npm install
+
+5. Run mongodb
+
+        $ mongod
+ 
+6. Run the app
+
+        $ npm run build
+
+To run angular 2 and node server separately  
+
+- angular 2
+
+      $ npm start
+
+- node server
+  
+      $ node server.js
+
